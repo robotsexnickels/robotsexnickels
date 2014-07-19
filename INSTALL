@@ -1,0 +1,9 @@
+Building RobotSexNickels
+
+See doc/readme-qt.rst for instructions on building RobotSexNickels-Qt,
+the intended-for-end-users, nice-graphical-interface, reference
+implementation of RobotSexNickels.
+
+See doc/build-*.txt for instructions on building robotsexnickelsd,
+the intended-for-services, no-graphical-interface, reference
+implementation of RobotSexNickels.
