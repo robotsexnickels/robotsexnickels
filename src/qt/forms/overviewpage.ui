@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>596</width>
-    <height>391</height>
+    <height>426</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -239,45 +239,12 @@
           </spacer>
          </item>
          <item>
-          <widget class="QGraphicsView" name="graphicsView">
-           <property name="enabled">
-            <bool>false</bool>
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string/>
            </property>
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-             <horstretch>1</horstretch>
-             <verstretch>1</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="baseSize">
-            <size>
-             <width>348</width>
-             <height>343</height>
-            </size>
-           </property>
-           <property name="autoFillBackground">
-            <bool>false</bool>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">border-image: url(:/images/logo);</string>
-           </property>
-           <property name="frameShape">
-            <enum>QFrame::NoFrame</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Plain</enum>
-           </property>
-           <property name="lineWidth">
-            <number>0</number>
-           </property>
-           <property name="interactive">
-            <bool>false</bool>
-           </property>
-           <property name="transformationAnchor">
-            <enum>QGraphicsView::NoAnchor</enum>
-           </property>
-           <property name="resizeAnchor">
-            <enum>QGraphicsView::NoAnchor</enum>
+           <property name="pixmap">
+            <pixmap resource="../bitcoin.qrc">:/images/logo</pixmap>
            </property>
           </widget>
          </item>
