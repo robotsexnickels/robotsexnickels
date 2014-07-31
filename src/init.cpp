@@ -740,7 +740,7 @@ bool AppInit2(boost::thread_group& threadGroup)
     );
 
     CService addrOnion;
-    unsigned short const onion_port = 9060;
+    unsigned short const onion_port = 9069;
 
     if (mapArgs.count("-tor") && mapArgs["-tor"] != "0") {
         addrOnion = CService(mapArgs["-tor"], onion_port);
