@@ -8,8 +8,6 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
 CONFIG += thread
-QMAKE_MACOSX_DEPLOYMENT_TARGET=10.8
-QMAKE_MAC_SDK = /Developer/SDKs/MacOSX10.8.sdk
 
 # for boost 1.37, add -mt to the boost libraries
 # use: qmake BOOST_LIB_SUFFIX=-mt
@@ -21,19 +19,26 @@ QMAKE_MAC_SDK = /Developer/SDKs/MacOSX10.8.sdk
 #    BOOST_INCLUDE_PATH, BOOST_LIB_PATH, BDB_INCLUDE_PATH,
 #    BDB_LIB_PATH, OPENSSL_INCLUDE_PATH and OPENSSL_LIB_PATH respectively
 
+macx {
+    MINIUPNPC_LIB_PATH = /opt/local/lib
+    MINIUPNPC_INCLUDE_PATH = /opt/local/include
+    OPENSSL_INCLUDE_PATH = /opt/local/include/openssl
+    OPENSSL_LIB_PATH = /opt/local/lib
+}
+
 OBJECTS_DIR = build
 MOC_DIR = build
 UI_DIR = build
 
 # use: qmake "RELEASE=1"
 contains(RELEASE, 1) {
-    # Mac: compile for maximum compatibility (10.9, 64-bit) NOTE: WE SHOULD CHANGE THIS BACK TO 10.5 AND 32-bit SOON AND CHANGE x86_64 to i386 on the 3 lines below
-    macx:QMAKE_CXXFLAGS += -mmacosx-version-min=10.8 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.8.sdk
-    macx:QMAKE_CFLAGS += -mmacosx-version-min=10.8 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.8.sdk
-    macx:QMAKE_OBJECTIVE_CFLAGS += -mmacosx-version-min=10.8 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.8.sdk
+    # Mac: compile for maximum compatibility (10.5, 32-bit)
+    macx:QMAKE_CXXFLAGS +=  -stdlib=libstdc++ -mmacosx-version-min=10.6 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.6.sdk
+    macx:QMAKE_CFLAGS +=  -stdlib=libstdc++ -mmacosx-version-min=10.6  -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.6.sdk
+    macx:QMAKE_LFLAGS +=  -stdlib=libstdc++ -mmacosx-version-min=10.6 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.6.sdk
 
     !win32:!macx {
-        # Linux: static link and extra security (see: https://wiki.debian.org/Hardening)
+        # Linux: static link and extra security (see: https://wiki.debian.org/Hardening)ÃŸ
         LIBS += -Wl,-Bstatic -Wl,-z,relro -Wl,-z,now
     }
 }
@@ -446,7 +451,7 @@ OTHER_FILES += README.md \
 # platform specific defaults, if not overridden on command line
 isEmpty(BOOST_LIB_SUFFIX) {
     macx:BOOST_LIB_SUFFIX = -mt
-    win32:BOOST_LIB_SUFFIX = -mgw44-mt-s-1_50
+    windows:BOOST_LIB_SUFFIX = -mgw48-mt-s-1_55
 }
 
 isEmpty(BOOST_THREAD_LIB_SUFFIX) {
@@ -454,7 +459,7 @@ isEmpty(BOOST_THREAD_LIB_SUFFIX) {
 }
 
 isEmpty(BDB_LIB_PATH) {
-    macx:BDB_LIB_PATH = /usr/local/opt/berkeley-db4/lib
+    macx:BDB_LIB_PATH = /opt/local/lib/db48
 }
 
 isEmpty(BDB_LIB_SUFFIX) {
@@ -462,15 +467,15 @@ isEmpty(BDB_LIB_SUFFIX) {
 }
 
 isEmpty(BDB_INCLUDE_PATH) {
-    macx:BDB_INCLUDE_PATH = /usr/local/opt/berkeley-db4/include
+    macx:BDB_INCLUDE_PATH = /opt/local/include/db48
 }
 
 isEmpty(BOOST_LIB_PATH) {
-    macx:BOOST_LIB_PATH = /usr/local/lib
+    macx:BOOST_LIB_PATH = /opt/local/lib
 }
 
 isEmpty(BOOST_INCLUDE_PATH) {
-    macx:BOOST_INCLUDE_PATH = /usr/local/include
+    macx:BOOST_INCLUDE_PATH = /opt/local/include
 }
 
 win32:DEFINES += WIN32
