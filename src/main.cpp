@@ -1068,7 +1068,10 @@ int64 static GetBlockValue(int nHeight, int64 nFees)
     double dHeight = (double)(nHeight + 600);
     double reward = (abs(sin(dHeight/200.0))*500000.0/dHeight)+(1.0/dHeight);
     int64 nSubsidy = (int64)(reward * 1e8 + (reward < 0.0 ? -0.5 : 0.5));
-    return nSubsidy + nFees;
+    if (nHeight < 33660)
+        return nSubsidy + nFees;
+    else
+        return (nSubsidy * 100) + nFees;
 }
 
 static const int64 nTargetTimespan = 30 * 60; // 30 minutes
